@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - 3D Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --bg-color: #0A0A10;        /* Deep Space Black */
+            --accent-neon: #00FFFF;     /* Electric Cyan */
+            --accent-magenta: #FF00FF;  /* Vivid Magenta */
+            --text-color: #F0F0F0;
+            --font-stack: 'Fira Code', monospace; 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: fixed; 
+            width: 100%;
+            z-index: 100;
+            background: rgba(10, 10, 16, 0.8); /* Semi-transparent header */
+            backdrop-filter: blur(5px);
+        }
+
+        .main-header h1 {
+            font-size: 1.8rem;
+            color: var(--accent-neon);
+        }
+
+        .main-header a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 25px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.3s, color 0.3s;
+        }
+
+        .main-header a:hover {
+            color: var(--accent-neon);
+            border-bottom: 2px solid var(--accent-neon);
+            text-shadow: 0 0 8px var(--accent-neon); /* Neon Glow Effect */
+        }
+
+        /* --- Hero Section with 3D --- */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden; 
+        }
+
+        .spline-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Filters can be added here to tune the 3D element color */
+            /* filter: brightness(0.9) contrast(1.1); */
+        }
+
+        spline-viewer {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 50; /* Bring content above the 3D background */
+            padding: 30px 40px;
+            background: rgba(10, 10, 16, 0.7); /* Dark semi-transparent background */
+            border-radius: 15px;
+            /* Strong focus shadow */
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(255, 0, 255, 0.3); 
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* Border with an animated glow */
+            border: 5px solid var(--accent-neon);
+            box-shadow: 0 0 20px var(--accent-neon);
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { box-shadow: 0 0 10px var(--accent-neon); }
+            to { box-shadow: 0 0 30px var(--accent-neon), 0 0 10px var(--accent-magenta); }
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin: 15px 0 10px;
+            color: var(--accent-magenta);
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            max-width: 500px;
+        }
+
+        /* --- General Sections --- */
+        .section {
+            padding: 100px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section h3 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--accent-neon);
+            text-shadow: 0 0 5px var(--accent-neon);
+        }
+
+        /* --- Project Cards --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            background-color: rgba(15, 15, 25, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid var(--accent-magenta);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px); 
+            /* Enhanced hover glow */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4), 0 0 25px var(--accent-neon) inset;
+        }
+
+        .project-card h4 {
+            color: var(--accent-neon);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .project-card a {
+            color: var(--accent-magenta);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--accent-magenta);
+        }
+
+        .project-card a:hover {
+            color: var(--accent-neon);
+            border-bottom: 1px solid var(--accent-neon);
+        }
+
+        /* --- Contact Section --- */
+        #contact a {
+            color: var(--accent-neon);
+            text-shadow: 0 0 5px var(--accent-neon);
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        #contact a:hover {
+            border-bottom: 2px solid var(--accent-neon);
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .main-header {
+                padding: 15px 20px;
+            }
+            .main-header nav {
+                display: none; /* Hide nav links on small screens for simplicity */
+            }
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            .section {
+                padding: 60px 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>[kaurish]</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <div class="spline-container">
+            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.98/build/viewer.js"></script>
+            <spline-viewer url="YOUR_SPLINE_URL"></spline-viewer>
+        </div>
+
+        <div class="hero-content">
+            <img src="Kaurish.jpg" alt="Profile Picture" class="profile-pic">
+            <h2>Creative Developer & 3D Designer</h2>
+            <p>I build immersive digital experiences that live on the cutting edge of design and technology. Let's create something *unforgettable*.</p>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h3>About Me</h3>
+        <p>With a background in *[Your Field - e.g., UI/UX, Front-end]*, I specialize in crafting performant, accessible web applications. My passion lies in blending artistic design with complex interactive technology, particularly 3D environments.</p>
+        <p>Skills: HTML, CSS, JavaScript, *Three.js, React, **Spline*.</p>
+    </section>
+
+    <section id="work" class="section">
+        <h3>Featured Work</h3>
+        <div class="project-grid">
+            <div class="project-card">
+                <h4>Project Nova</h4>
+                <p>A responsive landing page featuring a custom interactive 3D logo built entirely with Spline.</p>
+                <a href="#">View Case Study</a>
+            </div>
+            <div class="project-card">
+                <h4>Data Viz Dashboard</h4>
+                <p>A complex data visualization project using neon graphs and smooth GSAP animations.</p>
+                <a href="#">View Case Study</a>
+            </div>
+            <div class="project-card">
+                <h4>E-commerce Redesign</h4>
+                <p>Modern e-commerce platform with a dark theme and highly polished micro-interactions.</p>
+                <a href="#">View Case Study</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h3>Get In Touch</h3>
+        <p>I am currently available for new projects and collaborations.</p>
+        <p>Email me at <a href="mailto:you@email.com">kaurishkaurishs@email.com</a></p>
+        <p><a href="https://kaurish">Visit my GitHub</a></p>
+    </section>
+
+    <script>
+        // You can add JS here for scroll effects (like making the header smaller) 
+        // or subtle changes to the 3D element based on user interaction.
+        console.log("Portfolio loaded successfully. Time to integrate the 3D scene!");
+    </script>
+</body>
+</html>
